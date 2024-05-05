@@ -18,3 +18,23 @@
 ## Proofs
 
 **If you need view of current advance in develop of this language, pls view of `/tests/` folder.**
+
+--------
+
+## Usage
+
+**Donwload and execute Nyx CLI and follow next steps for succesful execute of a program writen in Nyx.**
+
+nyx = Linux Nyx Interpreter 
+nyx.exe = Windows Nyx Interpreter
+.nx = Nyx File suffix.
+
+```
+nyx run "path/of/the/file.nx"
+```
+
+### Help
+
+```
+nyx --help
+```
