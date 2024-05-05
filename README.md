@@ -43,7 +43,7 @@ nyx --help
 
 ## Interesting things
 
-- **All the non parser errors returning the literal value of `null` instead of an Error Object how the modern languages.**
+- **All the non parser errors returning the literal value of `null` instead of an Error Object how the modern languages.** *(Change in the future)*
 
 --------
 
