@@ -10,5 +10,7 @@
 
 - **Is a interpreted Programming Language based in the model of a AST Tree Walker (Not bytecode implemented).**
 - **This language is blazingly fast for their category.**
+- **It is construct enteraly in pure Safe Rust 🦀.**
+- **The end of use this lenguage is improve of creators skills in the area of Compilers and Interpreters of the Programming Languages.**
 
 --------
