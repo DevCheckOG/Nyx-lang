@@ -49,6 +49,6 @@ nyx --help
 
 ## Developers
 
-Actively developers working in this project:
+**Actively developers working in this project:**
 
-- Kevin Benavides (DevCheckOG). Contributions in: https://paypal.me/DevCheck
+- Kevin Benavides (DevCheckOG). Contributions in: `https://paypal.me/DevCheck`
