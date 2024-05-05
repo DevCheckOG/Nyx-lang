@@ -49,9 +49,9 @@ nyx --help
 
 ## Future
 
-- **Improve and add functional this to the Standard Library.**
+- **Improving and add functional this to the Standard Library.**
 - **Implementing HashMaps.**
-- **Enhance velocity.**
+- **Enhance the velocity.**
 
 --------
 
