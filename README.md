@@ -40,3 +40,15 @@ nyx --help
 ```
 
 --------
+
+## Interesting things
+
+- **All the non parser errors returning the literal value of `null` instead of an Error Object how the modern languages.**
+
+--------
+
+## Developers
+
+Actively developers working in this project:
+
+- Kevin Benavides (DevCheckOG).
