@@ -1,0 +1,8 @@
+// 🔁 While loop
+
+let i = 0;
+
+while (i < 10) {
+    write i;
+    i++;
+}

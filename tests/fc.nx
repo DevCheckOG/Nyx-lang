@@ -1,0 +1,23 @@
+// ⚡ Functions
+
+fc hello_world() {
+
+  return "Hello World!";
+
+}
+
+write hello_world();
+
+// 🌉 Function Wrapping
+
+fc call(fn) {
+
+  fn();
+
+}
+
+let a = 0;
+
+call(fc () { a++; });
+
+write a;

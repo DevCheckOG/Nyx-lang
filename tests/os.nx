@@ -1,0 +1,37 @@
+/* 🐧🪟 OS module (Standard Library) */
+
+// Calling Standard Library
+lib std::os;
+
+// ⏳ Current Time
+
+// Output: Time of the process in seconds.
+write os::current_time();
+
+/* --------------------------------------------------
+
+⚠️ NOTE
+
+DevCheck: In the future I will improve this function. 
+
+----------------------------------------------------- */
+
+// 📥 Input
+
+// Output: stdin
+write os::input("What is your name?: ");
+
+// 🐧🪟 Name
+
+// Output: Current name of the Operating System.
+write os::name;
+
+// 💻 Arch
+
+// Output: Current architecture.
+write os::arch;
+
+// 📢 Exit
+
+// Succesful process ended.
+os::exit(0);

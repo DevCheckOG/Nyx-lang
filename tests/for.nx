@@ -1,0 +1,9 @@
+// 🔁 For loop
+
+let c = 1;
+
+for (let i = 0; i < 10; i++) {
+    c = c + i;
+}
+
+write c;

@@ -1,0 +1,44 @@
+/* 🗃️ List module (Standard Library) */
+
+// Calling Standard Library
+lib std::list;
+
+// 🗃️ List
+
+let lista = list::gen();
+
+// Output: []
+write lista;
+
+// ➕ Add
+
+// ✨ Any Object can be added.
+let new_list = list::add(lista, 1, 1, 1, 2);
+
+write new_list;
+
+// 🔢 Size
+
+// Output: 4
+write list::size(new_list);
+
+// 🔁 Reverse
+
+// Output: [2, 1, 1, 1]
+write list::reverse(new_list);
+
+// 📥 Get
+
+/* The minimun index is 1 how the Lua Programming Language.
+The output should be an list of [item, index] ([1, 1]). */
+write list::get(new_list, 1);
+
+// 🗑️ Pop
+
+// The output should be the list without the previous last list element.
+write list::pop(new_list);
+
+// 🪓 Remove
+
+// The output should be the element deleted (1).
+write list::remove(new_list, 1);

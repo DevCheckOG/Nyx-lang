@@ -1,0 +1,16 @@
+/* 🎯 Utils module (Standard Library) */
+
+lib std::utils;
+
+// 🌎 Type
+
+// Output: string
+write utils::type("Hello, World!");
+
+// 🎁 Parse
+
+// Output: "9" of type string.
+write utils::parse(9);
+
+// Output: 9 of type number.
+write utils::parse("9");

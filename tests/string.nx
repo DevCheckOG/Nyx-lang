@@ -1,0 +1,44 @@
+/* 🧵 String module (Standard Library) */
+
+// Calling Standard Library
+lib std::string;
+
+// 🔢 Length
+
+// Output: 12
+write string::length("Hello World!");
+
+// 📦 Split
+
+// Output: [Hello, World!]
+write string::split("Hello, World!", ",");
+
+// 🔍 Find
+
+// Output: 0
+write string::find("Hello, World!", "H");
+
+// ➕ Push 
+
+// Output: "Hello, World!!"
+write string::push("Hello, World!", "!");
+
+// 📝 Replace 
+
+// Output: "Hello, World"
+write string::replace("Hello, World!", "!", "");
+
+// ➖ Trim
+
+// Output: "Hello,World"
+write string::trim("Hello, World!");
+
+// ➖ Trim Left
+
+// Output: "Hello, World!"
+write string::trim_l(" Hello, World!");
+
+// ➖ Trim Right
+
+// Output: "Hello, World!"
+write string::trim_r("Hello, World! ");

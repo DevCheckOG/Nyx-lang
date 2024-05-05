@@ -1,0 +1,29 @@
+/* 🔢 Math module (Standard Library) */
+
+// Calling Standard Library
+lib std::math;
+
+// 🔢 Sqrt
+
+// Output: 3
+write math::sqrt(9);
+
+// 🔢 Pow
+
+// Output: 3486784401
+write math::pow(9, 10);
+
+// 🔢 PI Constant
+
+// Output: 3.141592653589793
+write math::PI;
+
+// 🔢 FULL PI (TAU) Constant
+
+// Output: 6.283185307179586
+write math::TAU;
+
+// 🔢 E Constant
+
+// Output: 2.718281828459045
+write math::E;
