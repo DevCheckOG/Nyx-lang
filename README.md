@@ -3,3 +3,12 @@
 </p>
 
 # Nyx Programming Language
+
+## ¿What is it?
+
+--------
+
+**Is a interpreted Programming Language based in the model of a AST Tree Walker (Not bytecode implemented).**
+**This language is blazingly fast for their category.**
+
+--------
