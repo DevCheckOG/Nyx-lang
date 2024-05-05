@@ -47,6 +47,14 @@ nyx --help
 
 --------
 
+## Future
+
+- **Improve and add functional this to the Standard Library.**
+- **Implementing HashMaps.**
+- **Enhance velocity.**
+
+--------
+
 ## Developers
 
 **Actively developers working in this project:**
