@@ -1,0 +1,32 @@
+[package]
+name = "nyx"
+authors= ["Kevin Benavides || DevCheckOG"]
+description= "The official Interpreter for Nyx Programming Language."
+version = "0.1.0"
+edition = "2021"
+build = "src/build.rs"
+
+# [profile.dev]
+# codegen-units = 1
+# strip = true 
+# opt-level = 3
+# lto = 'fat'
+# panic = 'abort'
+# debug = false
+
+[profile.release]
+codegen-units = 1
+strip = true 
+opt-level = 3
+lto = 'fat'
+panic = 'abort'
+debug = false
+
+[dependencies]
+rpmalloc = "0.2.2"
+colored = "2.1.0"
+webbrowser = "1.0.0"
+clap = { version = "4.5.4", features = ["cargo", "help"] }
+
+[build-dependencies]
+winres = "0.1.12"
