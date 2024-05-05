@@ -39,5 +39,4 @@ nyx run "path/of/the/file.nx"
 nyx --help
 ```
 
-
 --------
