@@ -23,7 +23,7 @@
 
 ## Usage
 
-**Donwload and execute Nyx CLI and follow next steps for succesful execute of a program writen in Nyx.**
+**Download and execute Nyx CLI and follow next steps for succesful execute of a program writen in Nyx.**
 
 - nyx = Interpreter of Nyx Lang to Linux OS.
 - nyx.exe = Interpreter of Nyx Lang to Windows OS.
