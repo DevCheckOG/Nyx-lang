@@ -8,7 +8,7 @@
 
 --------
 
-**Is a interpreted Programming Language based in the model of a AST Tree Walker (Not bytecode implemented).**
-**This language is blazingly fast for their category.**
+- **Is a interpreted Programming Language based in the model of a AST Tree Walker (Not bytecode implemented).**
+- **This language is blazingly fast for their category.**
 
 --------
