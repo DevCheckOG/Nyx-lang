@@ -51,4 +51,4 @@ nyx --help
 
 Actively developers working in this project:
 
-- Kevin Benavides (DevCheckOG).
+- Kevin Benavides (DevCheckOG). Contributions in: https://paypal.me/DevCheck
