@@ -53,3 +53,5 @@ nyx --help
 
 **Kevin Benavides (DevCheckOG).** 
 *Contributions in:* https://paypal.me/DevCheck
+
+--------
