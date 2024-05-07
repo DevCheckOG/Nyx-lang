@@ -24,7 +24,7 @@ clazz Family {
 
 }
 
-clazz Hamster < Family {
+clazz Hamster extends Family {
 
     init() {
         super.init();

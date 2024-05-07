@@ -397,6 +397,7 @@ pub enum TokenType {
     Let,
     Const,
     While,
+    Extends,
     Std,
     Lib,
 
@@ -426,6 +427,7 @@ fn keywords<'a>() -> HashMap<&'a str, TokenType> {
         ("const", TokenType::Const),
         ("while", TokenType::While),
         ("std", TokenType::Std),
+        ("extends", TokenType::Extends),
         ("lib", TokenType::Lib),
         ("continue", TokenType::Continue),
         ("break", TokenType::Break),

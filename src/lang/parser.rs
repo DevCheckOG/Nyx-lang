@@ -59,7 +59,7 @@ impl<'a> NyxParser<'a> {
         } else if self.match_token(Fc) {
             return self.function();
         } else if self.match_token(Clazz) {
-            return self.class_declaration();
+            return self.clazz_declaration();
         } else if self.match_tokens(&[Lib, Std]) {
             return self.std_declaration();
         }
@@ -247,7 +247,7 @@ impl<'a> NyxParser<'a> {
         }
     }
 
-    fn class_declaration(&mut self) -> NyxInternalParserResult {
+    fn clazz_declaration(&mut self) -> NyxInternalParserResult {
         let name: Token = self.consume(
             Identifier,
             format!(
@@ -255,7 +255,7 @@ impl<'a> NyxParser<'a> {
                 self.tokens[self.current].line, self.tokens[self.current].column
             ),
         )?;
-        let superclass: Option<Expr> = if self.match_token(TokenType::Less) {
+        let superclass: Option<Expr> = if self.match_token(TokenType::Extends) {
             self.consume(
                 Identifier,
                 format!(
