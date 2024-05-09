@@ -23,7 +23,6 @@ panic = 'abort'
 debug = false
 
 [dependencies]
-rpmalloc = "0.2.2"
 colored = "2.1.0"
 webbrowser = "1.0.0"
 clap = { version = "4.5.4", features = ["cargo", "help"] }

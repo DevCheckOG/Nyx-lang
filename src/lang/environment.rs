@@ -47,7 +47,7 @@ impl Environment {
     }
 
     pub fn get(&self, name: &str, id: usize) -> Option<LiteralValue> {
-        self.get_internal(name, self.locals.borrow().get(&id).cloned())
+        self.internal(name, self.locals.borrow().get(&id).cloned())
     }
 
     pub fn get_this_instance(&self, id: usize) -> Option<LiteralValue> {
@@ -63,10 +63,10 @@ impl Environment {
             0
         });
 
-        self.get_internal("this", Some(distance - 1))
+        self.internal("this", Some(distance - 1))
     }
 
-    fn get_internal(&self, name: &str, distance: Option<usize>) -> Option<LiteralValue> {
+    fn internal(&self, name: &str, distance: Option<usize>) -> Option<LiteralValue> {
         if distance.is_none() {
             match &self.enclosing {
                 None => {
@@ -78,7 +78,7 @@ impl Environment {
 
                     self.values.borrow().get(const_i.as_str()).cloned()
                 }
-                Some(env) => env.get_internal(name, distance),
+                Some(env) => env.internal(name, distance),
             }
         } else {
             let distance: usize = distance.unwrap();
@@ -98,13 +98,9 @@ impl Environment {
                             .as_str(),
                         )
                         .panic();
-
-                        None
+                        unreachable!()
                     }
-                    Some(env) => {
-                        assert!(distance > 0);
-                        env.get_internal(name, Some(distance - 1))
-                    }
+                    Some(env) => env.internal(name, Some(distance - 1)),
                 }
             }
         }

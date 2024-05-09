@@ -70,6 +70,7 @@ impl<'a> NyxTokenizer<'a> {
                 };
                 self.make(tk, None);
             }
+            b'%' => self.make(TokenType::Arith, None),
             b';' => self.make(TokenType::Semicolon, None),
             b'*' => self.make(TokenType::Star, None),
             b':' => {
@@ -359,6 +360,7 @@ pub enum TokenType {
     ColonColon,
     RightBracket,
     LeftBracket,
+    Arith,
 
     Bang,
     BangEqual,

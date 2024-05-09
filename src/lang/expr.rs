@@ -123,8 +123,7 @@ pub fn find_method(name: &str, class: LiteralValue) -> Option<FunctionImpl> {
     }
 
     PanicHandler::new(None, None, None, "Cannot find method on non-class.").panic();
-
-    None
+    unreachable!()
 }
 
 impl LiteralValue {
@@ -157,8 +156,7 @@ impl LiteralValue {
                     format!("Clazz instance '{name}'")
                 } else {
                     PanicHandler::new(None, None, None, "Unreachable clazz name.").panic();
-
-                    String::new()
+                    unreachable!()
                 }
             }
 
@@ -173,11 +171,7 @@ impl LiteralValue {
                 "[]".to_string()
             }
 
-            LiteralValue::Module {
-                name,
-                methods: _,
-                constants: _,
-            } => format!("Module '{name}'"),
+            LiteralValue::Module { name, .. } => format!("Module '{name}'"),
         }
     }
 
@@ -189,18 +183,9 @@ impl LiteralValue {
             LiteralValue::True => "boolean",
             LiteralValue::False => "boolean",
             LiteralValue::Null => "null",
-            LiteralValue::Clazz {
-                name: _,
-                methods: _,
-                superclass: _,
-            } => "Clazz",
+            LiteralValue::Clazz { .. } => "Clazz",
             LiteralValue::ClassInstance { class, .. } => {
-                if let LiteralValue::Clazz {
-                    name,
-                    methods: _,
-                    superclass: _,
-                } = &**class
-                {
+                if let LiteralValue::Clazz { name, .. } = &**class {
                     name.as_str()
                 } else {
                     PanicHandler::new(None, None, None, "Unreachable clazz name.").panic();
@@ -222,8 +207,7 @@ impl LiteralValue {
                 }
 
                 PanicHandler::new(None, None, None, "Could not parse number.").panic();
-
-                Self::Number(0.0_f64)
+                unreachable!()
             }
 
             TokenType::StringLit => {
@@ -232,8 +216,7 @@ impl LiteralValue {
                 }
 
                 PanicHandler::new(None, None, None, "Could not parse number.").panic();
-
-                Self::Number(0.0_f64)
+                unreachable!()
             }
             TokenType::False => Self::False,
             TokenType::True => Self::True,
@@ -292,8 +275,7 @@ impl LiteralValue {
                     "A Callable should not be used as a boolean value.",
                 )
                 .panic();
-
-                LiteralValue::Null
+                unreachable!()
             }
             LiteralValue::Clazz { .. } => {
                 PanicHandler::new(
@@ -303,14 +285,12 @@ impl LiteralValue {
                     "A Clazz should not be used as a boolean value.",
                 )
                 .panic();
-
-                LiteralValue::Null
+                unreachable!()
             }
             _ => {
                 PanicHandler::new(None, None, None, "Object is not valid as a boolean value.")
                     .panic();
-
-                LiteralValue::Null
+                unreachable!()
             }
         }
     }
@@ -342,8 +322,7 @@ impl LiteralValue {
                     "A Callable should not be used as a boolean value.",
                 )
                 .panic();
-
-                LiteralValue::Null
+                unreachable!()
             }
             LiteralValue::Clazz { .. } => {
                 PanicHandler::new(
@@ -353,14 +332,12 @@ impl LiteralValue {
                     "A Clazz should not be used as a boolean value.",
                 )
                 .panic();
-
-                LiteralValue::Null
+                unreachable!()
             }
             _ => {
                 PanicHandler::new(None, None, None, "Object is not valid as a boolean value.")
                     .panic();
-
-                LiteralValue::Null
+                unreachable!()
             }
         }
     }
@@ -444,25 +421,6 @@ pub enum Expr {
 }
 
 impl Expr {
-    pub fn get_id(&self) -> usize {
-        match self {
-            Expr::AnonFunction { id, .. } => *id,
-            Expr::Assign { id, .. } => *id,
-            Expr::Binary { id, .. } => *id,
-            Expr::Call { id, .. } => *id,
-            Expr::Get { id, .. } => *id,
-            Expr::Grouping { id, .. } => *id,
-            Expr::Literal { id, .. } => *id,
-            Expr::Logical { id, .. } => *id,
-            Expr::Set { id, .. } => *id,
-            Expr::This { id, keyword: _ } => *id,
-            Expr::Super { id, .. } => *id,
-            Expr::Unary { id, .. } => *id,
-            Expr::Variable { id, name: _ } => *id,
-            Expr::ModuleProperty { id, .. } => *id,
-        }
-    }
-
     #[allow(dead_code)]
     pub fn convert(&self) -> String {
         match self {
@@ -536,9 +494,7 @@ impl Expr {
                 operator,
                 right,
             } => {
-                let op: String = operator.lexeme.to_owned();
-                let rhs: String = right.convert();
-                format!("({} {})", op, rhs)
+                format!("({} {})", operator.lexeme.to_owned(), right.convert())
             }
             Expr::Variable { id: _, name } => format!("(let {})", name.lexeme),
 
@@ -566,10 +522,10 @@ impl Expr {
                     body: body.to_vec(),
                 },
             ))),
-            Expr::Assign { id: _, name, value } => {
+            Expr::Assign { id, name, value } => {
                 let new: LiteralValue = value.evaluate(environment)?;
 
-                if environment.constant(&name.lexeme) {
+                if environment.constant(name.lexeme.as_str()) {
                     PanicHandler::new(
                         Some(name.line),
                         Some(name.column),
@@ -577,7 +533,7 @@ impl Expr {
                         "A constant is not allowed to be reassigned.",
                     )
                     .panic();
-                } else if environment.assign(&name.lexeme, &new, self.get_id()) {
+                } else if environment.assign(name.lexeme.as_str(), &new, *id) {
                     return Ok(new);
                 }
 
@@ -592,7 +548,7 @@ impl Expr {
                 Ok(LiteralValue::Null)
             }
 
-            Expr::Variable { id: _, name } => match environment.get(&name.lexeme, self.get_id()) {
+            Expr::Variable { id, name } => match environment.get(name.lexeme.as_str(), *id) {
                 Some(value) => Ok(value),
                 None => {
                     PanicHandler::new(
@@ -648,8 +604,7 @@ impl Expr {
                     "Unknown module in standard library.",
                 )
                 .panic();
-
-                Ok(LiteralValue::Null)
+                unreachable!()
             }
 
             Expr::Call {
@@ -713,8 +668,7 @@ impl Expr {
                                 "Unknown module in standard library.",
                             )
                             .panic();
-
-                            Ok(LiteralValue::Null)
+                            unreachable!()
                         }
 
                         _ => {
@@ -725,8 +679,7 @@ impl Expr {
                                 "Any Object is not callable.",
                             )
                             .panic();
-
-                            Ok(LiteralValue::Null)
+                            unreachable!()
                         }
                     },
 
@@ -749,14 +702,10 @@ impl Expr {
 
                             Ok((nativefc.fc)(&eval_args))
                         }
-                        LiteralValue::Clazz {
-                            name,
-                            methods,
-                            superclass: _,
-                        } => {
+                        LiteralValue::Clazz { name, methods, .. } => {
                             let instance: LiteralValue = LiteralValue::ClassInstance {
                                 class: Rc::new(callable),
-                                fields: Rc::new(RefCell::new(vec![])),
+                                fields: Rc::new(RefCell::new(Vec::new())),
                             };
 
                             if let Some(init_method) = methods.get("init") {
@@ -788,14 +737,12 @@ impl Expr {
                                 "Any Object is not callable.",
                             )
                             .panic();
-
-                            Ok(LiteralValue::Null)
+                            unreachable!()
                         }
                     },
                 }
             }
             Expr::Literal { id: _, value } => Ok(value.to_owned()),
-
             Expr::Logical {
                 id: _,
                 left,
@@ -826,8 +773,7 @@ impl Expr {
                         "Uknown logical operator.",
                     )
                     .panic();
-
-                    Ok(LiteralValue::Null)
+                    unreachable!()
                 }
             },
             Expr::Get {
@@ -924,40 +870,38 @@ impl Expr {
 
                 Ok(LiteralValue::Null)
             }
-            Expr::This { id: _, keyword } => {
-                let this: LiteralValue =
-                    environment.get("this", self.get_id()).unwrap_or_else(|| {
-                        PanicHandler::new(
-                            Some(keyword.line),
-                            Some(keyword.column),
-                            Some(&keyword.lexeme),
-                            "Couldn't lookup 'super'.",
-                        )
-                        .panic();
+            Expr::This { id, keyword } => {
+                let this: LiteralValue = environment.get("this", *id).unwrap_or_else(|| {
+                    PanicHandler::new(
+                        Some(keyword.line),
+                        Some(keyword.column),
+                        Some(&keyword.lexeme),
+                        "Couldn't lookup 'super'.",
+                    )
+                    .panic();
 
-                        LiteralValue::Null
-                    });
+                    LiteralValue::Null
+                });
                 Ok(this)
             }
             Expr::Super {
-                id: _,
+                id,
                 keyword: _,
                 method,
             } => {
-                let superclass: LiteralValue =
-                    environment.get("super", self.get_id()).unwrap_or_else(|| {
-                        PanicHandler::new(
-                            Some(method.line),
-                            Some(method.column),
-                            Some(&method.lexeme),
-                            "Couldn't lookup 'super'.",
-                        )
-                        .panic();
+                let superclass: LiteralValue = environment.get("super", *id).unwrap_or_else(|| {
+                    PanicHandler::new(
+                        Some(method.line),
+                        Some(method.column),
+                        Some(&method.lexeme),
+                        "Couldn't lookup 'super'.",
+                    )
+                    .panic();
 
-                        LiteralValue::Null
-                    });
+                    LiteralValue::Null
+                });
 
-                let instance: LiteralValue = environment.get_this_instance(self.get_id()).unwrap();
+                let instance: LiteralValue = environment.get_this_instance(*id).unwrap();
 
                 if let LiteralValue::Clazz {
                     name,
@@ -988,8 +932,7 @@ impl Expr {
                     "The superclass field on an instance was not a clazz.",
                 )
                 .panic();
-
-                Ok(LiteralValue::Null)
+                unreachable!()
             }
             Expr::Grouping { id: _, expression } => expression.evaluate(environment),
             Expr::Unary {
@@ -1010,8 +953,7 @@ impl Expr {
                         .as_str(),
                     )
                     .panic();
-
-                    Ok(LiteralValue::Null)
+                    unreachable!()
                 }
                 (any, TokenType::Bang) => Ok(any.is_false()),
                 (_, type_) => Err(format!(
@@ -1037,6 +979,10 @@ impl Expr {
                     (LiteralValue::Number(x), TokenType::Minus, LiteralValue::Number(y)) => {
                         Ok(LiteralValue::Number(x - y))
                     }
+                    (LiteralValue::Number(x), TokenType::Arith, LiteralValue::Number(y)) => {
+                        Ok(LiteralValue::Number(x % y))
+                    }
+
                     (LiteralValue::Number(x), TokenType::Star, LiteralValue::Number(y)) => {
                         Ok(LiteralValue::Number(x * y))
                     }
@@ -1111,8 +1057,7 @@ impl Expr {
                             .as_str(),
                         )
                         .panic();
-
-                        Ok(LiteralValue::Null)
+                        unreachable!()
                     }
                 }
             }

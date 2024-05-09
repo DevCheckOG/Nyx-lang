@@ -242,8 +242,8 @@ impl Resolver {
 
     fn resolve_expr(&mut self, expr: &Expr) -> NyxResult {
         match expr {
-            Expr::Variable { id: _, name: _ } => self.resolve_let(expr, expr.get_id()),
-            Expr::Assign { .. } => self.resolve_assign(expr, expr.get_id()),
+            Expr::Variable { id, name: _ } => self.resolve_let(expr, *id),
+            Expr::Assign { id, .. } => self.resolve_assign(expr, *id),
             Expr::Binary {
                 id: _,
                 left,
@@ -293,17 +293,17 @@ impl Resolver {
                 self.resolve_expr(value)?;
                 self.resolve_expr(object)
             }
-            Expr::This { id: _, keyword } => {
+            Expr::This { id, keyword } => {
                 if self.fc != FunctionType::Method {
                     return Err(format!(
                         "Cannot use 'this' keyword outside of a clazz. ({}:{})",
                         keyword.line, keyword.column
                     ));
                 }
-                self.resolve_local(keyword, expr.get_id())
+                self.resolve_local(keyword, *id)
             }
             Expr::Super {
-                id: _,
+                id,
                 keyword,
                 method: _,
             } => {
@@ -321,7 +321,7 @@ impl Resolver {
                         keyword.line, keyword.column
                     ));
                 }
-                self.resolve_local(keyword, expr.get_id())
+                self.resolve_local(keyword, *id)
             }
             Expr::Unary {
                 id: _,
