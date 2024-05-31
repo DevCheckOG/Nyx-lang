@@ -5,7 +5,7 @@
 # Nyx Programming Language
 
 > [!WARNING]  
-> **This project development has ended.** The new impl of **Nyx Lang** coming soon with an *Compiler* and tipical optimal *Interpreter*
+> **This project development has ended.** The new impl of **Nyx Lang** coming soon with an *Compiler* and tipical optimal *Interpreter*.
 
 ## ¿What is it?
 
